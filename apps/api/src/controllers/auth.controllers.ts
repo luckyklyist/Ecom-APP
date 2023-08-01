@@ -1,8 +1,51 @@
 import { Request, Response } from "express";
 import User from "@/models/user.model";
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
 
-const createUser = (req: Request, res: Response) => {
+dotenv.config();
 
+const createUser = async (req: Request, res: Response) => {
+    try {
+        const { username, email, password } = req.body;
+
+        const checkUserExist = await User.findOne({ username, email });
+        if (checkUserExist) {
+            return res.send({ message: "Username/Email already exists" })
+        }
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        const newUser = await User.create({ username, email, password: hashedPassword });
+
+        return res.status(201).send({ message: "New user created", userInfo: newUser })
+
+    }
+    catch (err) {
+        console.log(err);
+        res.status(500).send({ message: err })
+    }
 }
 
-export { createUser };
+const loginUser = async (req: Request, res: Response) => {
+    try {
+        const { email, password } = req.body;
+
+        const checkUserExist = await User.findOne({ email });
+
+        if (!checkUserExist) {
+            return res.send({ message: "User does not exists" })
+        }
+
+        const token = jwt.sign({ _id: checkUserExist._id }, process.env.SECRETE_KEY || "random");
+
+        return res.status(200).send({ token });
+
+    } catch (err) {
+        console.log(err);
+        res.status(500).send({ message: err })
+    }
+}
+
+export { createUser, loginUser };
