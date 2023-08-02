@@ -1,7 +1,10 @@
 import { Response, Request, NextFunction } from 'express';
-import jwt from 'jsonwebtoken';
-import config from '../config/developement.cofig'; // Fixed typo: "developement" to "development"
+import jwt, { JwtPayload } from 'jsonwebtoken';
+import config from '../config/developement.cofig';
 
+interface MyRequest extends Request {
+    user: JwtPayload;
+}
 
 const validateToken = (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -12,8 +15,8 @@ const validateToken = (req: Request, res: Response, next: NextFunction) => {
         }
 
         try {
-            const verifyToken = jwt.verify(token, config.SECRETE_KEY);
-            req.user = verifyToken; // Attach the decoded token payload to the request object for later use if needed.
+            const verifyToken = jwt.verify(token, config.SECRET_KEY) as JwtPayload;
+            (req as MyRequest).user = verifyToken;
             next();
         } catch (err) {
             return res.status(401).send({ message: "Invalid Token" });
