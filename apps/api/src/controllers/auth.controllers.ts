@@ -8,7 +8,7 @@ dotenv.config();
 
 const getUsers = async (req: Request, res: Response) => {
     try {
-        const users = await User.find({ role: "User" })
+        const users = await User.find({})
         return res.send({ users })
     }
     catch (err) {

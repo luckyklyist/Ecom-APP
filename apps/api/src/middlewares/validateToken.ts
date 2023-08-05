@@ -16,7 +16,9 @@ const validateToken = (req: Request, res: Response, next: NextFunction) => {
 
         try {
             const verifyToken = jwt.verify(token, config.SECRET_KEY) as JwtPayload;
-            (req as MyRequest).user = verifyToken;
+            if(verifyToken){
+                (req as MyRequest).user = verifyToken;
+            }
             next();
         } catch (err) {
             return res.status(401).send({ message: "Invalid Token" });

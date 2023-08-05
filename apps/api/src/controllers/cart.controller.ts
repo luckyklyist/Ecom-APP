@@ -12,22 +12,28 @@ const getCarts = async (req: Request, res: Response) => {
         res.json(carts);
     }
     catch (error) {
+        console.log(error)
         res.status(500).json({ error: 'Failed to fetch Carts' });
     }
 }
 
 const createCart = async (req: Request, res: Response) => {
     try {
-        const cartData = req.body;
+        const { items } = req.body;
+        const checkExistingCart = await Cart.findOne({ user: req.user });
+        if (checkExistingCart) {
+            return res.send({ message: "User already have a active cart" });
+        }
         const newCart = new Cart({
             user: req.user,
-            items: cartData.items,
+            items: items,
             totalPrice: 0
         })
         await newCart.save();
         res.status(201).json(newCart)
     }
     catch (error) {
+        console.log(error)
         res.status(500).json({ error: 'Failed to create cart' });
     }
 }
@@ -56,5 +62,7 @@ const deleteCart = async (req: Request, res: Response) => {
 
 export {
     getCarts,
-    createCart
+    createCart,
+    updateCart,
+    deleteCart
 }
