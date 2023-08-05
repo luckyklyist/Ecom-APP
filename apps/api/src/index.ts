@@ -3,10 +3,12 @@ import dotenv from 'dotenv';
 import indexRoutes from './routes/index.routes';
 import connectDB from "./connectDB";
 import bodyParser from 'body-parser';
+import cors from 'cors';
 
 const app = express();
 dotenv.config();
 app.use(bodyParser());
+app.use(cors());
 
 const PORT = process.env.PORT || 3004;
 
