@@ -6,6 +6,10 @@ interface MyRequest extends Request {
     user: string
 }
 
+const calculateTotalPrice = (items: any[]): number => {
+    return items.reduce((total, item) => total + item.price * item.quantity, 0);
+};
+
 const getCarts = async (req: Request, res: Response) => {
     try {
         const carts = await Cart.find({ user: (req as MyRequest).user })
@@ -27,7 +31,7 @@ const createCart = async (req: Request, res: Response) => {
         const newCart = new Cart({
             user: req.user,
             items: items,
-            totalPrice: 0
+            totalPrice: calculateTotalPrice(items)
         })
         await newCart.save();
         res.status(201).json(newCart)
@@ -40,14 +44,25 @@ const createCart = async (req: Request, res: Response) => {
 
 const updateCart = async (req: Request, res: Response) => {
     try {
-        const cartId = req.params.id;
-        const updatedCart = await Cart.updateOne({ _id: cartId }, req.body);
-        res.send({ message: "Cart updated", updateCart });
-    }
-    catch (error) {
+        const { items } = req.body;
+        const userId = req.user;
+        const existingCart = await Cart.findOne({ user: userId });
+
+        if (!existingCart) {
+            return res.status(404).json({ error: 'Cart not found for the user.' });
+        }
+
+        existingCart.items.push(...items);
+        existingCart.totalPrice = calculateTotalPrice(existingCart.items);
+        await existingCart.save();
+        res.status(200).json(existingCart);
+    } catch (error) {
+        console.error(error);
         res.status(500).json({ error: 'Failed to update cart' });
     }
-}
+};
+
+
 
 const deleteCart = async (req: Request, res: Response) => {
     try {
