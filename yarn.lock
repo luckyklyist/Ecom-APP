@@ -4612,6 +4612,10 @@ typed-array-length@^1.0.4:
     for-each "^0.3.3"
     is-typed-array "^1.1.9"
 
+"types@file:/home/anupam_01/fullstack/Ecom/packages/types":
+  version "1.0.0"
+  resolved "file:packages/types"
+
 typescript@*, typescript@^4.5.3, typescript@^5.1.6, typescript@>=2.7, "typescript@>=2.8.0 || >= 3.2.0-dev || >= 3.3.0-dev || >= 3.4.0-dev || >= 3.5.0-dev || >= 3.6.0-dev || >= 3.6.0-beta || >= 3.7.0-dev || >= 3.7.0-beta", typescript@>=3.3.1:
   version "5.1.6"
   resolved "https://registry.npmjs.org/typescript/-/typescript-5.1.6.tgz"
@@ -4634,6 +4638,7 @@ ui@*, "ui@file:/home/anupam_01/fullstack/Ecom/packages/ui":
     "@emotion/react" "^11.11.1"
     "@emotion/styled" "^11.11.0"
     "@mui/material" "^5.14.3"
+    material-icons "^1.13.9"
 
 unbox-primitive@^1.0.2:
   version "1.0.2"

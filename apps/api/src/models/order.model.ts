@@ -6,12 +6,11 @@ const orderSchema = new mongoose.Schema({
         ref: "user",
         required: true
     },
-    products: {
+    productsCart: {
         type: [mongoose.Schema.Types.ObjectId],
         ref: "cart",
         required: true
     },
-    totalPrice: { type: Number, required: true },
     paymentStatus: { type: Boolean },
     orderStatus: { type: Boolean },
 }, { timestamps: true })
