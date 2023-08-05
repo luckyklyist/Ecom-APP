@@ -1,7 +1,6 @@
 "use client"
 import { LoginForm } from "ui";
 import axios from "axios";
-import { cookies } from "next/headers";
 
 export default function Page() {
 
@@ -10,7 +9,7 @@ export default function Page() {
         console.log(resp.data.token)
         console.log(resp)
         if (resp.status == 200) {
-            cookies().set('token', resp.data.token);
+            document.cookie = `token=${resp.data.token}`;
         }
     }
 
@@ -19,4 +18,4 @@ export default function Page() {
             <LoginForm onLogin={onLogin} />
         </>
     )
-}``
+} ``
