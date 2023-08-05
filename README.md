@@ -1,81 +1,77 @@
-# Turborepo starter
+# MERN Web E-commerce Application - Turbo Repo
 
-This is an official starter Turborepo.
+## Introduction
 
-## Using this example
+This is a Turbo Repo for a MERN (MongoDB, Express, React, Node.js) web application that serves as an e-commerce platform. It includes user authentication, product listings, shopping cart functionality, and order management.
 
-Run the following command:
+## Getting Started
 
-```sh
-npx create-turbo@latest
-```
+To run the application:
 
-## What's inside?
+1. Clone the repository: `git clone https://github.com/your-username/mern-ecommerce-app.git`
+2. Navigate to the project folder: `cd mern-ecommerce-app`
+3. Install the dependencies for the entire project: `npm install`
+4. Set up the environment variables in `.env` files as needed for the backend and frontend.
+5. Start the development server: `npm run dev`
 
-This Turborepo includes the following packages/apps:
+This command will start both the backend and frontend development servers simultaneously.
 
-### Apps and Packages
+## Backend Sketch Structure
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `ui`: a stub React component library shared by both `web` and `docs` applications
-- `eslint-config-custom`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `tsconfig`: `tsconfig.json`s used throughout the monorepo
+![Screenshot from 2023-08-05 16-12-28](https://github.com/luckyklyist/Ecom-APP/assets/35479077/6a22b7a0-ab73-4fdf-887e-ecb24067f946)
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+## Backend API Routes
 
-### Utilities
+The backend contains the following API routes:
 
-This Turborepo has some additional tools already setup for you:
+### User Routes
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+- `POST /api/user/register`: Register a new user.
+- `POST /api/user/login`: User login.
+- `GET /api/user/profile`: Get user profile details.
+- `PUT /api/user/profile`: Update user profile.
+- `DELETE /api/user/profile`: Delete user profile.
 
-### Build
+### Product Routes
 
-To build all apps and packages, run the following command:
+- `GET /api/products`: Get all products.
+- `POST /api/products`: Add a new product.
+- `GET /api/products/:id`: Get a product by ID.
+- `PUT /api/products/:id`: Update a product.
+- `DELETE /api/products/:id`: Delete a product.
 
-```
-cd my-turborepo
-pnpm build
-```
+### Cart Routes
 
-### Develop
+- `GET /api/cart`: Get the shopping cart items.
+- `POST /api/cart`: Add an item to the shopping cart.
+- `PUT /api/cart/:id`: Update an item quantity in the shopping cart.
+- `DELETE /api/cart/:id`: Remove an item from the shopping cart.
 
-To develop all apps and packages, run the following command:
+### Order Routes
 
-```
-cd my-turborepo
-pnpm dev
-```
+- `GET /api/orders`: Get all orders.
+- `POST /api/orders`: Place a new order.
+- `GET /api/orders/:id`: Get an order by ID.
+- `PUT /api/orders/:id`: Update the status of an order.
 
-### Remote Caching
+## Technologies Used
 
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
+- Frontend: React,TypeScript,Recoil,Next js
+- Backend: Node.js, Express.js,TypeScript,Zod
+- Database: MongoDB (Mongoose ORM)
+- Authentication: JWT (JSON Web Tokens)
 
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
+## Contribution Guidelines
 
-```
-cd my-turborepo
-npx turbo login
-```
+1. Fork the repository.
+2. Create a new branch: `git checkout -b feature/your-feature-name`
+3. Make your changes and commit them: `git commit -m "Add your feature description"`
+4. Push to the branch: `git push origin feature/your-feature-name`
+5. Create a pull request.
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+## License
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
-```
-npx turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
+## Contact
+Website: [https://anupamac.me](https://anupamac.me)
