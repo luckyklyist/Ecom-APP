@@ -1,13 +1,13 @@
 import { Box, Button, TextField, Typography } from '@mui/material';
 import React, { useState } from 'react';
 
-export const LoginForm = ({onLogin}) => {
+export const LoginForm = ({ onLogin }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     const handleSubmit = (event) => {
-        event.preventDefault(); 
-        onLogin(email,password)
+        event.preventDefault();
+        onLogin(email, password)
     }
 
     return (
