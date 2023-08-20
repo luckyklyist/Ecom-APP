@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Typography, Grid} from '@mui/material';
+import { Container, Typography, Grid, Link } from '@mui/material';
 
 export const Products = ({ products }) => {
   return (
@@ -18,15 +18,15 @@ export const Products = ({ products }) => {
                 <p> {product.price}</p>
                 <p> {product.productDescription}</p>
                 <div className="card-actions justify-end">
-                  <button className="btn btn-primary">Buy Now</button>
-                </div>
-
+                  <Link href={`/products/${product._id}`} className="btn btn-primary">Buy Now</Link>
               </div>
+
             </div>
+          </div>
           </Grid>
         ))}
-      </Grid>
-    </Container>
+    </Grid>
+    </Container >
   );
 };
 
