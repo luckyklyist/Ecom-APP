@@ -1,29 +1,28 @@
 import React from 'react';
-import { Container, Typography, Grid, Card, CardContent, CardMedia } from '@mui/material';
+import { Container, Typography, Grid} from '@mui/material';
 
-export const Products = ({products}) => {
+export const Products = ({ products }) => {
   return (
     <Container>
-      <Typography variant="h4" component="h1" align="center" gutterBottom>
+      <Typography variant="h4" component="h1" align="center" gutterBottom className='text-yellow-600'>
         Products
       </Typography>
       <Grid container spacing={3}>
         {products.map((product) => (
           <Grid key={product._id} item xs={12} sm={6} md={4}>
-            <Card>
-              <CardMedia component="img" image={product.imageUrl} alt={product.name} height="200" />
-              <CardContent>
-                <Typography variant="h5" component="h2">
-                  {product.productName}
-                </Typography>
-                <Typography variant="h6" component="h2">
-                  {product.price}
-                </Typography>
-                <Typography variant="body2" color="textSecondary">
-                  {product.productDescription}
-                </Typography>
-              </CardContent>
-            </Card>
+
+            <div className="card w-96 bg-base-100 shadow-xl p-6 ">
+              <img src={product.imageUrl} alt="{product.productName}" />
+              <div className="card-body ">
+                <h2 className="card-title">{product.productName}</h2>
+                <p> {product.price}</p>
+                <p> {product.productDescription}</p>
+                <div className="card-actions justify-end">
+                  <button className="btn btn-primary">Buy Now</button>
+                </div>
+
+              </div>
+            </div>
           </Grid>
         ))}
       </Grid>
