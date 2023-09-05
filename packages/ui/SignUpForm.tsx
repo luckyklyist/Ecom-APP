@@ -1,57 +1,48 @@
-import { Box, Button, TextField, Typography } from '@mui/material';
-import React from 'react';
+import React, { useState } from 'react';
 
-export const SignUp = () => {
+export const SignUp = ({ onSignUp }) => {
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    onSignUp(username, email, password);
+  };
+
   return (
-    <Box
-      component="form"
-      sx={{
-        '& > :not(style)': { my: 2, width: '100%', maxWidth: '400px' },
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        minHeight: '100vh', // Set the container to take at least the full viewport height
-        bgcolor: '#f0f0f0',
-        p: 4,
-        borderRadius: '8px',
-        boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', // Add a subtle box shadow
-      }}
-      noValidate
-      autoComplete="off"
-    >
-      <Typography variant="h4" gutterBottom>
-        Signup Form
-      </Typography>
-      <TextField
-        id="username"
-        label="Username"
-        variant="outlined"
-        fullWidth
-        margin="normal"
-        required
-      />
-      <TextField
-        id="email"
-        label="Email"
-        variant="outlined"
-        fullWidth
-        margin="normal"
-        required
-      />
-      <TextField
-        id="password"
-        label="Password"
-        type="password"
-        variant="outlined"
-        fullWidth
-        margin="normal"
-        required
-      />
-
-      <Button type="submit" variant="contained" color="primary" sx={{ mt: 3 }}>
-        Submit
-      </Button>
-    </Box>
+    <div className="flex items-center justify-center p-6 rounded-md shadow-2xl max-w-md mx-auto bg-dark p-4 border">
+      <div className="space-y-4">
+        <h4 className="text-2xl font-semibold">Signup Form</h4>
+        <input
+          id="username"
+          type="text"
+          placeholder="Username"
+          className="input w-full max-w-xs"
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        <input
+          id="email"
+          type="email"
+          placeholder="Email"
+          className="input w-full max-w-xs"
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <input
+          id="password"
+          type="password"
+          placeholder="Password"
+          className="input w-full max-w-xs"
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <button
+          type="button"
+          className="btn btn-primary w-full"
+          onClick={handleSubmit}
+        >
+          Submit
+        </button>
+      </div>
+    </div>
   );
 };

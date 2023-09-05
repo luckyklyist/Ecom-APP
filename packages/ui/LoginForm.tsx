@@ -1,4 +1,3 @@
-import { Box, Button, TextField, Typography } from '@mui/material';
 import React, { useState } from 'react';
 
 export const LoginForm = ({ onLogin }) => {
@@ -7,53 +6,35 @@ export const LoginForm = ({ onLogin }) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        onLogin(email, password)
-    }
+        onLogin(email, password);
+    };
 
     return (
-        <Box
-            component="form"
-            sx={{
-                '& > :not(style)': { my: 2, width: '100%', maxWidth: '400px' },
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'center',
-                minHeight: '100vh', // Set the container to take at least the full viewport height
-                bgcolor: '#f0f0f0',
-                p: 4,
-                borderRadius: '8px',
-                boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', // Add a subtle box shadow
-            }}
-            noValidate
-            autoComplete="off"
-        >
-            <Typography variant="h4" gutterBottom>
-                Login Form
-            </Typography>
-            <TextField
-                id="email"
-                label="Email"
-                variant="outlined"
-                fullWidth
-                margin="normal"
-                required
-                onChange={(e) => setEmail(e.target.value)}
-            />
-            <TextField
-                id="password"
-                label="Password"
-                type="password"
-                variant="outlined"
-                fullWidth
-                margin="normal"
-                required
-                onChange={(e) => setPassword(e.target.value)}
-            />
-
-            <Button type="button" variant="contained" color="primary" sx={{ mt: 3 }} onClick={handleSubmit}>
-                Submit
-            </Button>submit
-        </Box>
+        <div className="flex items-center justify-center p-6 rounded-md shadow-2xl max-w-md mx-auto bg-dark p-4 border">
+            <div className="space-y-4">
+                <h4 className="text-2xl font-semibold">Login Form</h4>
+                <input
+                    id="email"
+                    type="email"
+                    placeholder="Email"
+                    className="input w-full max-w-xs"
+                    onChange={(e) => setEmail(e.target.value)}
+                />
+                <input
+                    id="password"
+                    type="password"
+                    placeholder="Password"
+                    className="input w-full max-w-xs"
+                    onChange={(e) => setPassword(e.target.value)}
+                />
+                <button
+                    type="button"
+                    className="btn btn-primary w-full"
+                    onClick={handleSubmit}
+                >
+                    Submit
+                </button>
+            </div>
+        </div>
     );
 };
