@@ -1,16 +1,29 @@
-import React from 'react';
-import { Container, Typography, Grid, Link } from '@mui/material';
+import React from "react";
+import { Container, Typography, Grid, Link } from "@mui/material";
 
-export const Products = ({ products }) => {
+type Products = {
+  _id: string;
+  productName: string;
+  price: number;
+  productDescription: string;
+  imageUrl: string;
+}[];
+
+export const Products = ({ products }: { products: Products }) => {
   return (
     <Container>
-      <Typography variant="h4" component="h1" align="center" gutterBottom className='text-yellow-600'>
+      <Typography
+        variant="h4"
+        component="h1"
+        align="center"
+        gutterBottom
+        className="text-yellow-600"
+      >
         Products
       </Typography>
       <Grid container spacing={3}>
         {products.map((product) => (
           <Grid key={product._id} item xs={12} sm={6} md={4}>
-
             <div className="card w-96 bg-base-100 shadow-xl p-6 ">
               <img src={product.imageUrl} alt="{product.productName}" />
               <div className="card-body ">
@@ -18,15 +31,18 @@ export const Products = ({ products }) => {
                 <p> {product.price}</p>
                 <p> {product.productDescription}</p>
                 <div className="card-actions justify-end">
-                  <Link href={`/products/${product._id}`} className="btn btn-primary">Buy Now</Link>
+                  <Link
+                    href={`/products/${product._id}`}
+                    className="btn btn-primary"
+                  >
+                    Buy Now
+                  </Link>
+                </div>
               </div>
-
             </div>
-          </div>
           </Grid>
         ))}
-    </Grid>
-    </Container >
+      </Grid>
+    </Container>
   );
 };
-

@@ -1,14 +1,21 @@
-import React, { useState } from 'react';
-import { Box, Button, Container, Grid, TextField, Typography } from '@mui/material';
+import React, { useState } from "react";
+import {
+  Box,
+  Button,
+  Container,
+  Grid,
+  TextField,
+  Typography,
+} from "@mui/material";
 
 export const Profile = () => {
   const [editMode, setEditMode] = useState(false);
-  const [email, setEmail] = useState('user@example.com');
-  const [firstName, setFirstName] = useState('John');
-  const [lastName, setLastName] = useState('Doe');
-  const [currentPassword, setCurrentPassword] = useState('');
-  const [newPassword, setNewPassword] = useState('');
-  const [confirmNewPassword, setConfirmNewPassword] = useState('');
+  const [email, setEmail] = useState("user@example.com");
+  const [firstName, setFirstName] = useState("John");
+  const [lastName, setLastName] = useState("Doe");
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmNewPassword, setConfirmNewPassword] = useState("");
 
   const handleSaveChanges = () => {
     // Implement logic to save changes to user profile
@@ -17,9 +24,9 @@ export const Profile = () => {
 
   const handleChangePassword = () => {
     // Implement logic to change password
-    setCurrentPassword('');
-    setNewPassword('');
-    setConfirmNewPassword('');
+    setCurrentPassword("");
+    setNewPassword("");
+    setConfirmNewPassword("");
   };
 
   return (
@@ -105,7 +112,11 @@ export const Profile = () => {
         <Box mt={2}>
           {editMode ? (
             <>
-              <Button variant="contained" color="primary" onClick={handleSaveChanges}>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={handleSaveChanges}
+              >
                 Save Changes
               </Button>
               <Button variant="contained" onClick={() => setEditMode(false)}>
@@ -114,10 +125,18 @@ export const Profile = () => {
             </>
           ) : (
             <>
-              <Button variant="contained" color="primary" onClick={() => setEditMode(true)}>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => setEditMode(true)}
+              >
                 Edit Profile
               </Button>
-              <Button variant="contained" color="secondary" onClick={handleChangePassword}>
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={handleChangePassword}
+              >
                 Change Password
               </Button>
             </>
