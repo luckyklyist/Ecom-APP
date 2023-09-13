@@ -1,8 +1,10 @@
 "use client"
 import { LoginForm } from "ui";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
+    const router=useRouter();
 
     const onLogin = async (email: string, password: string) => {
         try{
@@ -11,6 +13,7 @@ export default function Page() {
             console.log(resp)
             if (resp.status == 200) {
                 document.cookie = `token=${resp.data.token}`;
+                router.push('/')
             }
         }
         catch (error) {
