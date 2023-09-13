@@ -3,8 +3,11 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Navbar, Products } from "ui";
 import { ProductsType } from "../../types/types";
+import { CartContext } from "../../context/cart.context.provider";
+import { useContext } from "react";
 
 export default function Page() {
+    const {cart}=useContext(CartContext);
     const [products, setProduct] = useState<ProductsType[]>([]);
     const getProducts = async () => {
         try {
@@ -19,6 +22,7 @@ export default function Page() {
     useEffect(() => {
         console.log(products)
         getProducts();
+        console.log(cart,"these are the cart items");
     }, [])
     return (
         <>
