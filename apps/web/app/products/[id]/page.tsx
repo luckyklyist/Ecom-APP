@@ -1,14 +1,15 @@
 'use client'
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { ProductsType } from "../../../types/types";
 
 const ProductDetail = ({ params }) => {
     const productId = params.id;
-    const [productData, setProductData] = useState({});
+    const [productData, setProductData] = useState<ProductsType>();
 
     const getProductsDetail = async () => {
         try {
-            const resp = await axios.get(`http://localhost:3001/api/v1/products/${productId}`)
+            const resp = await axios.get(`http://localhost:3004/api/v1/products/${productId}`)
             console.log(resp)
             setProductData(resp.data);
         }
