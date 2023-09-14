@@ -15,7 +15,6 @@ const ProductDetail = ({ params }) => {
       const resp = await axios.get(
         `http://localhost:3004/api/v1/products/${productId}`
       );
-      console.log(resp);
       setProductData(resp.data);
     } catch (error) {
       console.log("Error occured");
@@ -38,8 +37,7 @@ const ProductDetail = ({ params }) => {
             className="btn w-40 btn-accent"
             onClick={() =>
               addToCart({
-                id: productData?._id,
-                productName: productData?.productName,
+                productId: productData?._id,
               })
             }
           >

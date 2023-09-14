@@ -9,8 +9,7 @@ interface CartContext {
 }
 
 interface CartItem {
-  _id: string;
-  productName: string;
+  productId:number;
 }
 
 export const CartContext = createContext<CartContext | null>(null);
@@ -19,9 +18,9 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [cart, setCartName] = useState<CartItem[]>([
-    { _id: "1", productName: "test" },
-    { _id: "2", productName: "test2" },
-    { _id: "3", productName: "test3" },
+    { productId:1 },
+    { productId:2},
+    { productId:3 },
   ]);
 
   const addToCart = (product: CartItem) => {
