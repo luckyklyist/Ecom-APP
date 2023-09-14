@@ -3,6 +3,7 @@ import User from "../models/user.model";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
+import config from "../config/developement.cofig";
 
 dotenv.config();
 
@@ -58,12 +59,14 @@ const loginUser = async (req: Request, res: Response) => {
       checkUserExist.password
     );
 
+    console.log("the secret key ",config.SECRET_KEY)
+
     if (!checkPassowrd) {
       res.send({ message: "Password not correct" });
     } else {
       const token = jwt.sign(
         { _id: checkUserExist._id },
-        process.env.SECRETE_KEY || "random"
+        config.SECRET_KEY
       );
 
       return res.status(200).send({ token });
