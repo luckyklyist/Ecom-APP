@@ -10,12 +10,16 @@ const validateToken = (req: Request, res: Response, next: NextFunction) => {
   try {
     const token = req.headers?.authorization;
 
-    if (!token) {
+    // split from bearer token from the header
+
+    const bearerToken = token?.split(" ")[1];
+    
+    if (!bearerToken) {
       return res.status(401).send({ message: "Missing Token" });
     }
 
     try {
-      const verifyToken = jwt.verify(token, config.SECRET_KEY) as JwtPayload;
+      const verifyToken = jwt.verify(bearerToken, config.SECRET_KEY) as JwtPayload;
       if (verifyToken) {
         (req as MyRequest).user = verifyToken;
       }
