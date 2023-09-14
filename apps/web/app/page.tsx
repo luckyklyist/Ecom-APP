@@ -1,18 +1,21 @@
 export default function Page() {
   return (
     <>
-      <div className="card lg:card-side bg-primary-focus shadow-xl conatiner m-6">
-        <img
-          src="https://static.nike.com/a/images/t_default/99486859-0ff3-46b4-949b-2d16af2ad421/custom-nike-dunk-high-by-you-shoes.png"
-          alt="Album"
-          width={300}
-        />
-        <div className="card-body ml-10">
-          <h2 className="card-title text-5xl text-warning font-bold ">
-            Welcome to ECOM NEPAL
-          </h2>
-          <p className="text-sm">Find the best deal in Nepal !!</p>
-          <div className="card-actions justify-end mr-6">
+      <div className="flex justify-center items-center min-h-screen">
+        <div className="p-8 rounded-lg shadow-xl max-w-md">
+          <img
+            src="https://aniyuki.com/wp-content/uploads/2021/12/aniyuki-anime-girl-87.gif"
+            alt="Album"
+            className="mx-auto rounded-lg"
+            width={300}
+          />
+          <div className="text-center mt-8">
+            <h2 className="text-6xl text-warning font-bold mb-4">
+              Welcome to the Digital Art Gallery!
+            </h2>
+            <p className="text-2xl text-white mb-6">
+              Buy the best digital art from the best movies and anime series.
+            </p>
             <button className="btn btn-neutral">Explore</button>
           </div>
         </div>

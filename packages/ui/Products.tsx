@@ -17,9 +17,9 @@ export const Products = ({ products }: { products: Products }) => {
         component="h1"
         align="center"
         gutterBottom
-        className="text-yellow-600"
+        className="text-yellow-600 uppercase font-bold"
       >
-        Products
+        Our Digital Arts
       </Typography>
       <Grid container spacing={3}>
         {products.map((product) => (

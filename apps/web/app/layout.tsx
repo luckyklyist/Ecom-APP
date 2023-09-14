@@ -10,7 +10,7 @@ export default function RootLayout({
 }) {
   return (
     <>
-      <html lang="en">
+      <html lang="en" data-theme="black">
         <body>
           <script src="https://cdn.tailwindcss.com"></script>
           <link

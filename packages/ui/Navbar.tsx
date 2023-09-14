@@ -7,8 +7,8 @@ export const Navbar = () => {
     <div>
       <div className="navbar bg-base-100">
         <div className="flex-1">
-          <Link href="/" className="btn btn-ghost normal-case text-xl">
-            ECOM APP
+          <Link href="/" className="font-bold text-xl italic p-3">
+            KLYISTIFY
           </Link>
         </div>
         <div className="flex-none">
