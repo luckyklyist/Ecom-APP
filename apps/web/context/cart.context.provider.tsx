@@ -1,5 +1,3 @@
-"use client";
-
 import { createContext, useEffect, useState } from "react";
 import { Navbar } from "ui";
 

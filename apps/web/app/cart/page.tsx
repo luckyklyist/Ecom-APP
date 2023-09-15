@@ -9,10 +9,13 @@ interface CartItem {
 }
 
 const CartPage: React.FC = () => {
-  const cartItems: CartItem[] = JSON.parse(
-    localStorage.getItem("cart") || "[]"
-  );
+  const [cartItems, setCartItems] = React.useState<CartItem[]>([]);
+
   const subtotal = calculateTotal(cartItems);
+
+  React.useEffect(() => {
+    setCartItems(JSON.parse(localStorage.getItem("cart") || "[]"));
+  });
 
   return (
     <div className="container mx-auto px-4 py-8">
