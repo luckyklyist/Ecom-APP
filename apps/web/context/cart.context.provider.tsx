@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { Navbar } from "ui";
 
 interface CartContext {
@@ -21,14 +21,21 @@ export const CartContext = createContext<CartContext | null>(null);
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [cart, setCartName] = useState<CartItem[]>([]);
+  const initialstate = JSON.parse(localStorage.getItem("cart") || "[]");
+  const [cart, setCartName] = useState<CartItem[]>(initialstate);
 
   const addToCart = (product: CartItem) => {
-    setCartName([...cart, product]);
-    localStorage.setItem("cart", JSON.stringify(cart));
+    setCartName((prev) => {
+      const newCart = [...prev, product];
+      return newCart;
+    });
   };
 
   const totalCart = cart.length;
+
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
   return (
     <CartContext.Provider value={{ cart, addToCart, totalCart }}>
       <Navbar totalCart={totalCart} />
