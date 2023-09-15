@@ -16,7 +16,9 @@ export default function Page() {
             <p className="text-2xl text-white mb-6">
               Buy the best digital art from the best movies and anime series.
             </p>
-            <button className="btn btn-neutral">Explore</button>
+            <button className="btn btn-outline btn-warning text-2xl">
+              Explore
+            </button>
           </div>
         </div>
       </div>

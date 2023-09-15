@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import { Navbar } from "ui";
+import NavBarLayout from "../components/NavBar";
 
 interface CartContext {
   cart: CartItem[];
@@ -36,7 +37,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
   }, [cart]);
   return (
     <CartContext.Provider value={{ cart, addToCart, totalCart }}>
-      <Navbar totalCart={totalCart} />
+      <NavBarLayout totalCart={totalCart} />
       {children}
     </CartContext.Provider>
   );
