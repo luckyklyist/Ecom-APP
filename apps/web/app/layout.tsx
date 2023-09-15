@@ -2,12 +2,15 @@
 import { Navbar } from "ui";
 import "../styles/globals.css";
 import { CartProvider } from "../context/cart.context.provider";
+import { useContext } from "react";
+import { CartContext } from "../context/cart.context.provider";
 
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+
   return (
     <>
       <html lang="en" data-theme="black">
@@ -19,8 +22,9 @@ export default function RootLayout({
             type="text/css"
           />
           <script src="https://cdn.tailwindcss.com"></script>
-          <Navbar />
-          <CartProvider>{children}</CartProvider>
+          <CartProvider>
+            {children}
+          </CartProvider>
         </body>
       </html>
     </>

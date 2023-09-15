@@ -6,7 +6,7 @@ import { useContext } from "react";
 import { CartContext } from "../../../context/cart.context.provider";
 
 const ProductDetail = ({ params }) => {
-  const { cart, addToCart } = useContext(CartContext);
+  const { cart, addToCart, totalCart } = useContext(CartContext);
   const productId = params.id;
   const [productData, setProductData] = useState<ProductsType>();
 
@@ -15,6 +15,7 @@ const ProductDetail = ({ params }) => {
       const resp = await axios.get(
         `http://localhost:3004/api/v1/products/${productId}`
       );
+      console.log(resp.data);
       setProductData(resp.data);
     } catch (error) {
       console.log("Error occured");
@@ -25,6 +26,7 @@ const ProductDetail = ({ params }) => {
   }, []);
   return (
     <div className="flex flex-col justify-center  items-center mt-20">
+      <h1>Total product in the cart is now {totalCart}</h1>
       <div className="card lg:card-side  m-6 ">
         <img src={productData?.imageUrl} alt="Album" width={300} />
         <div className="card-body ml-10">
@@ -38,6 +40,9 @@ const ProductDetail = ({ params }) => {
             onClick={() =>
               addToCart({
                 productId: productData?._id,
+                productName: productData?.productName,
+                price: productData?.price,
+                imageUrl: productData?.imageUrl,
               })
             }
           >
