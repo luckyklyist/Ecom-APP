@@ -6,6 +6,7 @@ interface CartContext {
   cart: CartItem[];
   addToCart: (product: object) => void;
   totalCart: number;
+  deleteFromCart: (product: Number) => void;
 }
 
 interface CartItem {
@@ -30,13 +31,24 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
     });
   };
 
+  const deleteFromCart = (productId: Number) => {
+    setCartName((prev) => {
+      const newCart = prev.filter(
+        (item) => item.productId !== productId
+      );
+      return newCart;
+    });
+  };
+
   const totalCart = cart.length;
 
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
   return (
-    <CartContext.Provider value={{ cart, addToCart, totalCart }}>
+    <CartContext.Provider
+      value={{ cart, addToCart, totalCart, deleteFromCart }}
+    >
       <NavBarLayout totalCart={totalCart} />
       {children}
     </CartContext.Provider>

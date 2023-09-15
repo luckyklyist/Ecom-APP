@@ -1,5 +1,7 @@
 "use client";
 import * as React from "react";
+import { useContext } from "react";
+import { CartContext } from "../../context/cart.context.provider";
 
 interface CartItem {
   productId: number;
@@ -9,13 +11,14 @@ interface CartItem {
 }
 
 const CartPage: React.FC = () => {
+  const { deleteFromCart } = useContext(CartContext);
   const [cartItems, setCartItems] = React.useState<CartItem[]>([]);
 
   const subtotal = calculateTotal(cartItems);
 
   React.useEffect(() => {
     setCartItems(JSON.parse(localStorage.getItem("cart") || "[]"));
-  });
+  }, []);
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -47,6 +50,14 @@ const CartPage: React.FC = () => {
                 <div className="mt-4">
                   <span className="font-bold">${item.price}</span>
                 </div>
+                <div>
+                  <button
+                    className="px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600"
+                    onClick={() => deleteFromCart(item.productId)}
+                  >
+                    Delete
+                  </button>
+                </div>
               </div>
             </div>
           ))}
@@ -64,10 +75,6 @@ const CartPage: React.FC = () => {
 
 function calculateTotal(cartItems: CartItem[]) {
   return cartItems.reduce((total, item) => total + item.price, 0);
-}
-
-function removeItem(cartItems: CartItem[], item: CartItem) {
-  return cartItems.filter((i) => i.productId !== item.productId);
 }
 
 export default CartPage;

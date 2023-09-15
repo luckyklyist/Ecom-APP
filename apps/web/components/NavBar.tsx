@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-const NavBarLayout :React.FC<{ totalCart: Number }> = ({ totalCart }) => {
+const NavBarLayout: React.FC<{ totalCart: Number }> = ({ totalCart }) => {
   return (
     <div>
       <div className="navbar bg-base-100">
@@ -18,7 +18,7 @@ const NavBarLayout :React.FC<{ totalCart: Number }> = ({ totalCart }) => {
               <Link href="/profile">Profile</Link>
             </li>
             <li>
-              <Link href="/profile" className="relative group">
+              <Link href="/cart" className="relative group">
                 <span className="relative inline-block">
                   <span
                     className="mr-2 text-indigo-500 group-hover:text-indigo-700 text-base"
