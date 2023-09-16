@@ -1,6 +1,12 @@
 import Link from "next/link";
 
 const NavBarLayout: React.FC<{ totalCart: Number }> = ({ totalCart }) => {
+  const token = document.cookie;
+  let autheticated = false;
+  if (token) {
+    autheticated = true;
+  }
+
   return (
     <div>
       <div className="navbar bg-base-100">
@@ -34,10 +40,15 @@ const NavBarLayout: React.FC<{ totalCart: Number }> = ({ totalCart }) => {
                 Cart
               </Link>
             </li>
-
-            <li>
-              <Link href="/signup">SignUp</Link>
-            </li>
+            {autheticated ? (
+              <li>
+                <Link href="/logout">Logout</Link>
+              </li>
+            ) : (
+              <li>
+                <Link href="/login">Login</Link>
+              </li>
+            )}
           </ul>
         </div>
       </div>
