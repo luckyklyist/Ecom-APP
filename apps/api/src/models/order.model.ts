@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 
+//Todo types of the Order models
+
 const orderSchema = new mongoose.Schema(
   {
     user: {
@@ -8,8 +10,7 @@ const orderSchema = new mongoose.Schema(
       required: true,
     },
     productsCart: {
-      type: [mongoose.Schema.Types.ObjectId],
-      ref: "cart",
+      type: Array,
       required: true,
     },
     paymentStatus: { type: Boolean },

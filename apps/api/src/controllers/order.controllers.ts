@@ -22,6 +22,7 @@ const createOrder = async (req: Request, res: Response) => {
       paymentStatus: true,
       orderStatus: true,
     });
+
     return res
       .status(201)
       .json({ message: "Order created successfully", data: newOrder });
