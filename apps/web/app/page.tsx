@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Page() {
   return (
     <>
@@ -17,7 +19,7 @@ export default function Page() {
               Buy the best digital art from the best movies and anime series.
             </p>
             <button className="btn btn-outline btn-warning text-2xl">
-              Explore
+              <Link href="/products">Explore</Link>
             </button>
           </div>
         </div>

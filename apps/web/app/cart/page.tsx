@@ -11,14 +11,14 @@ interface CartItem {
 }
 
 const CartPage: React.FC = () => {
-  const { deleteFromCart } = useContext(CartContext);
+  const { cart, deleteFromCart } = useContext(CartContext);
   const [cartItems, setCartItems] = React.useState<CartItem[]>([]);
 
   const subtotal = calculateTotal(cartItems);
 
   React.useEffect(() => {
-    setCartItems(JSON.parse(localStorage.getItem("cart") || "[]"));
-  }, []);
+    setCartItems(cart);
+  }, [cart]);
 
   return (
     <div className="container mx-auto px-4 py-8">

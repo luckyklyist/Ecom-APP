@@ -33,9 +33,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const deleteFromCart = (productId: Number) => {
     setCartName((prev) => {
-      const newCart = prev.filter(
-        (item) => item.productId !== productId
-      );
+      const newCart = prev.filter((item) => item.productId !== productId);
       return newCart;
     });
   };

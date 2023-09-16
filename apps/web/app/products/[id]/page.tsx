@@ -6,9 +6,25 @@ import { useContext } from "react";
 import { CartContext } from "../../../context/cart.context.provider";
 
 const ProductDetail = ({ params }) => {
-  const { cart, addToCart, totalCart } = useContext(CartContext);
+  const { cart, addToCart, totalCart, deleteFromCart } =
+    useContext(CartContext);
   const productId = params.id;
   const [productData, setProductData] = useState<ProductsType>();
+  const [cartSelected, setCartSelected] = useState(false);
+
+  const toggleCart = () => {
+    setCartSelected(!cartSelected);
+    if (cartSelected) {
+      addToCart({
+        productId: productData?._id,
+        productName: productData?.productName,
+        price: productData?.price,
+        imageUrl: productData?.imageUrl,
+      });
+    } else {
+      deleteFromCart(productData?._id);
+    }
+  };
 
   const getProductsDetail = async () => {
     try {
@@ -48,6 +64,22 @@ const ProductDetail = ({ params }) => {
           >
             Add to Cart
           </button>
+
+          {cartSelected ? (
+            <button
+              className="btn w-40 btn-accent"
+              onClick={() => toggleCart()}
+            >
+              Remove from Cart
+            </button>
+          ) : (
+            <button
+              className="btn w-40 btn-accent"
+              onClick={() => toggleCart()}
+            >
+              Add to Cart
+            </button>
+          )}
         </div>
       </div>
     </div>
