@@ -51,30 +51,45 @@ const ProductDetail = ({ params }) => {
     getProductsDetail();
   }, []);
   return (
-    <div className="flex flex-col justify-center  items-center mt-20">
-      <div className="card lg:card-side  m-6 ">
-        <img src={productData?.imageUrl} alt="Album" width={300} />
-        <div className="card-body ml-10">
-          <h2 className="card-title text-5xl text-warning font-bold ">
-            {productData?.productName}
-          </h2>
-          <p className="text-sm">{productData?.productDescription}</p>
-
-          {cartSelected ? (
-            <button
-              className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded w-40 "
-              onClick={() => toggleCart()}
-            >
-              Remove
-            </button>
-          ) : (
-            <button
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-40"
-              onClick={() => toggleCart()}
-            >
-              Add to Cart
-            </button>
-          )}
+    <div className="flex flex-col justify-center items-center mt-20">
+      <div className="bg-gray-900 p-6 rounded-lg shadow-lg w-[94vw]">
+        <div className="flex flex-col md:flex-row">
+          <div className="md:w-1/2">
+            <img
+              src={productData?.imageUrl}
+              alt={productData?.productName}
+              className="w-full h-auto"
+            />
+          </div>
+          <div className="md:w-1/2 mt-6 md:mt-0 md:ml-6">
+            <h1 className="text-4xl font-semibold text-white">
+              {productData?.productName}
+            </h1>
+            <p className="text-sm text-white my-4">
+              {productData?.productDescription}
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ducimus
+              architecto placeat necessitatibus deserunt. Labore ullam earum
+              perspiciatis. Perferendis maxime neque ratione architecto minima,
+              delectus nobis, facere dolore iusto, aperiam aliquid!
+            </p>
+            <div className="mt-4">
+              {cartSelected ? (
+                <button
+                  className="bg-red-500 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg w-30 text-sm focus:outline-none focus:ring-2 focus:ring-red-400"
+                  onClick={() => toggleCart()}
+                >
+                  Remove from Cart
+                </button>
+              ) : (
+                <button
+                  className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg w-30 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+                  onClick={() => toggleCart()}
+                >
+                  Add to Cart
+                </button>
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </div>
