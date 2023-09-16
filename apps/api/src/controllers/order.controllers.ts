@@ -1,3 +1,4 @@
+import Product from "../models/product.model";
 import Order from "../models/order.model";
 import { Request, Response } from "express";
 
@@ -15,7 +16,20 @@ const getOrders = async (req: Request, res: Response) => {
 
 const createOrder = async (req: Request, res: Response) => {
   try {
-    const { productsCart } = req.body;
+    const { productsCart } = req.body; // Array of ID of the Products
+
+    let price = 0;
+
+    for (const productItem of productsCart) {
+      const product = await Product.findOne({ _id: productItem.product });
+      if (!product) {
+        return res.status(404).json({ message: "Product not found" });
+      }
+      price += product.price;
+    }
+
+    console.log(price);
+
     const newOrder = await Order.create({
       user: req.user,
       productsCart,
@@ -23,9 +37,11 @@ const createOrder = async (req: Request, res: Response) => {
       orderStatus: true,
     });
 
-    return res
-      .status(201)
-      .json({ message: "Order created successfully", data: newOrder });
+    return res.status(201).json({
+      message: "Order created successfully",
+      data: newOrder,
+      price: price,
+    });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Error on creating orders", error });
