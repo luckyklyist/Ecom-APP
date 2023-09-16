@@ -14,7 +14,7 @@ const ProductDetail = ({ params }) => {
 
   const toggleCart = () => {
     setCartSelected(!cartSelected);
-    if (cartSelected) {
+    if (!cartSelected) {
       addToCart({
         productId: productData?._id,
         productName: productData?.productName,
@@ -26,13 +26,23 @@ const ProductDetail = ({ params }) => {
     }
   };
 
+  const checkProductInCart = () => {
+    const products = JSON.parse(localStorage.getItem("cart"));
+    const productExist = products.some(
+      (product) => product.productId === productId
+    );
+    if (productExist) {
+      setCartSelected(true);
+    }
+  };
+
   const getProductsDetail = async () => {
     try {
       const resp = await axios.get(
         `http://localhost:3004/api/v1/products/${productId}`
       );
-      console.log(resp.data);
       setProductData(resp.data);
+      checkProductInCart();
     } catch (error) {
       console.log("Error occured");
     }
@@ -42,7 +52,6 @@ const ProductDetail = ({ params }) => {
   }, []);
   return (
     <div className="flex flex-col justify-center  items-center mt-20">
-      <h1>Total product in the cart is now {totalCart}</h1>
       <div className="card lg:card-side  m-6 ">
         <img src={productData?.imageUrl} alt="Album" width={300} />
         <div className="card-body ml-10">
@@ -51,30 +60,16 @@ const ProductDetail = ({ params }) => {
           </h2>
           <p className="text-sm">{productData?.productDescription}</p>
 
-          <button
-            className="btn w-40 btn-accent"
-            onClick={() =>
-              addToCart({
-                productId: productData?._id,
-                productName: productData?.productName,
-                price: productData?.price,
-                imageUrl: productData?.imageUrl,
-              })
-            }
-          >
-            Add to Cart
-          </button>
-
           {cartSelected ? (
             <button
-              className="btn w-40 btn-accent"
+              className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded w-40 "
               onClick={() => toggleCart()}
             >
-              Remove from Cart
+              Remove
             </button>
           ) : (
             <button
-              className="btn w-40 btn-accent"
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-40"
               onClick={() => toggleCart()}
             >
               Add to Cart

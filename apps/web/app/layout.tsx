@@ -17,7 +17,7 @@ export default function RootLayout({
             rel="stylesheet"
             type="text/css"
           />
-          <script src="https://cdn.tailwindcss.com"></script>
+          {/* <script src="https://cdn.tailwindcss.com"></script> */}
           <CartProvider>{children}</CartProvider>
         </body>
       </html>
