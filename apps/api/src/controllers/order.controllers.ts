@@ -4,7 +4,7 @@ import { Request, Response } from "express";
 
 const getOrders = async (req: Request, res: Response) => {
   try {
-    const orderData = await Order.find({});
+    const orderData = await Order.find({ user: req.user });
     return res
       .status(200)
       .json({ message: "Orders fetched successfully", data: orderData });

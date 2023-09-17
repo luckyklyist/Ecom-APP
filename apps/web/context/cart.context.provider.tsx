@@ -21,7 +21,15 @@ export const CartContext = createContext<CartContext | null>(null);
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const initialstate = JSON.parse(localStorage.getItem("cart") || "[]");
+  let initialstate = [];
+
+  if (typeof window !== "undefined") {
+    const storedCart = localStorage.getItem("cart");
+    if (storedCart) {
+      initialstate = JSON.parse(storedCart);
+    }
+  }
+
   const [cart, setCartName] = useState<CartItem[]>(initialstate);
 
   const addToCart = (product: CartItem) => {

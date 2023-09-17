@@ -1,7 +1,8 @@
 import Link from "next/link";
+import { getTokenCookie } from "../utils/cookieUtils";
 
 const NavBarLayout: React.FC<{ totalCart: Number }> = ({ totalCart }) => {
-  const token = document.cookie;
+  const token = getTokenCookie();
   let autheticated = false;
   if (token) {
     autheticated = true;
