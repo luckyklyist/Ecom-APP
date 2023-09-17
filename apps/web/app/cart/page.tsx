@@ -2,6 +2,7 @@
 import * as React from "react";
 import { useContext } from "react";
 import { CartContext } from "../../context/cart.context.provider";
+import { getTokenCookie } from "../../utils/cookieUtils";
 
 interface CartItem {
   productId: number;
@@ -13,8 +14,31 @@ interface CartItem {
 const CartPage: React.FC = () => {
   const { cart, deleteFromCart } = useContext(CartContext);
   const [cartItems, setCartItems] = React.useState<CartItem[]>([]);
+  const [token, setToken] = React.useState<string>("");
 
   const subtotal = calculateTotal(cartItems);
+
+  const sentOrder = (carts) => {
+    try {
+      const cartItem = carts.map((cart) => {
+        return {
+          product: cart.productId,
+        };
+      });
+      console.log(cartItem);
+      const token = getTokenCookie();
+      fetch("http://localhost:3004/api/v1/order", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ productsCart: cartItem }),
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   React.useEffect(() => {
     setCartItems(cart);
@@ -70,7 +94,11 @@ const CartPage: React.FC = () => {
           </div>
 
           <div className="mt-4 flex justify-end items-center">
-            <button className="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">
+            <button
+              className="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded
+            "
+              onClick={() => sentOrder(cart)}
+            >
               Checkout
             </button>
           </div>
