@@ -9,11 +9,12 @@ interface Order {
   createdAt: string;
   updatedAt: string;
   __v: number;
+  totalCost: number;
 }
 
 interface OrdersResponse {
   message: string;
-  data: Order[];
+  data: Order;
 }
 
 export default async function OrderPage() {
@@ -37,5 +38,35 @@ export default async function OrderPage() {
 
   const orderData = await orderDataUser();
 
-  return <div>Weclome to the order page</div>;
+  console.log(orderData, "these are the order data");
+
+  return (
+    <div>
+      <div className="container mx-auto px-4 py-8">
+        <div className="flex flex-col md:flex-row md:justify-between md:items-center">
+          <h1 className="text-2xl font-bold my-4">
+            Order <span className="text-yellow-500">Pending</span>
+          </h1>
+        </div>
+        <div className="mt-8 bg-gray-800 p-5 rounded-lg">
+          Total Cost :{" "}
+          <span className="font-bold">${orderData.data.totalCost}</span>
+          <span className="ml-2 text-yellow-500">
+            (Complete order with stripe)
+          </span>
+        </div>
+        <div>
+          <div className="mt-4 flex justify-end items-center">
+            <button
+              className="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded
+            "
+              // onClick={() => sentOrder(cart)}
+            >
+              Checkout
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
