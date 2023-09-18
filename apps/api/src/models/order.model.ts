@@ -15,6 +15,10 @@ const orderSchema = new mongoose.Schema(
     },
     paymentStatus: { type: Boolean },
     orderStatus: { type: Boolean },
+    totalCost: {
+      type: Number,
+      default: 0,
+    },
   },
   { timestamps: true }
 );

@@ -1,10 +1,11 @@
 import { Request, Response } from "express";
 import stripePackage from "stripe";
 import { Router } from "express";
+import config from "../config/developement.cofig";
 
 const router = Router();
 
-const stripe = stripePackage(process.env.STRIPE_SECRET_KEY);
+const stripe = stripePackage(config.STRIPE_SECRET_KEY);
 
 router.post("/api/create-checkout-session", async (req, res) => {
   const { product } = req.body;
@@ -15,18 +16,18 @@ router.post("/api/create-checkout-session", async (req, res) => {
         price_data: {
           currency: "usd",
           product_data: {
-            name: product.name,
+            name: "Arrya Stark",
           },
-          unit_amount: product.price * 100,
+          unit_amount: 3000,
         },
-        quantity: product.quantity,
+        quantity: 2,
       },
     ],
     mode: "payment",
     success_url: "http://localhost:3000/success",
-    cancel_url: "http://localhost:3000/cancel",
+    cancel_url: "http://localhost:3000/user/orders",
   });
-  res.json({ id: session.id });
+  res.send({ url: session.url });
 });
 
 export default router;

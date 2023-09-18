@@ -4,7 +4,7 @@ import { Request, Response } from "express";
 
 const getOrders = async (req: Request, res: Response) => {
   try {
-    const orderData = await Order.find({ user: req.user });
+    const orderData = await Order.findOne({ user: req.user });
     return res
       .status(200)
       .json({ message: "Orders fetched successfully", data: orderData });
@@ -17,6 +17,14 @@ const getOrders = async (req: Request, res: Response) => {
 const createOrder = async (req: Request, res: Response) => {
   try {
     const { productsCart } = req.body; // Array of ID of the Products
+
+    const existingOrder = await Order.findOne({ user: req.user });
+
+    if (existingOrder) {
+      return res
+        .status(400)
+        .json({ message: "User already has an existing order" });
+    }
 
     let price = 0;
 
@@ -35,6 +43,7 @@ const createOrder = async (req: Request, res: Response) => {
       productsCart,
       paymentStatus: true,
       orderStatus: true,
+      totalCost: price,
     });
 
     return res.status(201).json({
