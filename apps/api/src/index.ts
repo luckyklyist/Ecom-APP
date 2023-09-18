@@ -8,7 +8,14 @@ import cors from "cors";
 const app = express();
 dotenv.config();
 app.use(bodyParser());
-app.use(cors());
+const corsOptions = {
+  origin: "http://localhost:3000",
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true,
+  optionsSuccessStatus: 204,
+};
+
+app.use(cors(corsOptions));
 
 const PORT = process.env.PORT || 3004;
 
