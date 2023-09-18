@@ -8,6 +8,7 @@ interface Config {
   LOCAL_DB: string;
   STRIPE_SECRET_KEY: string;
   STRIPE_PUBLIC_KEY: string;
+  CLIENT_URL: string;
 }
 
 const config: Config = {
@@ -16,6 +17,7 @@ const config: Config = {
   LOCAL_DB: process.env.LOCAL_DB || "mongodb://localhost:27017/ecomapp",
   STRIPE_PUBLIC_KEY: process.env.STRIPE_PUBLISHABLE_KEY || "",
   STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY || "",
+  CLIENT_URL: process.env.CLIENT_URL || "http://localhost:3000",
 };
 
 export default config;

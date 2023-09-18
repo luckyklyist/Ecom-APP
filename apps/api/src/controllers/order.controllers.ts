@@ -2,6 +2,20 @@ import Product from "../models/product.model";
 import Order from "../models/order.model";
 import { Request, Response } from "express";
 
+const checkUserHaveOrder = async (req: Request, res: Response) => {
+  try {
+    const existingOrder = await Order.findOne({ user: req.user });
+    if (existingOrder) {
+      return res.status(200).send({ staus: true });
+    } else {
+      return res.status(200).send({ staus: false });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Error on fetching orders", error });
+  }
+};
+
 const getOrders = async (req: Request, res: Response) => {
   try {
     const orderData = await Order.findOne({ user: req.user });
@@ -92,4 +106,4 @@ const deleteOrder = async (req: Request, res: Response) => {
   }
 };
 
-export { getOrders, createOrder, updateOrder, deleteOrder };
+export { getOrders, createOrder, updateOrder, deleteOrder, checkUserHaveOrder };
