@@ -3,6 +3,9 @@ import * as React from "react";
 import { useContext } from "react";
 import { CartContext } from "../../context/cart.context.provider";
 import { getTokenCookie } from "../../utils/cookieUtils";
+import { useRouter } from "next/navigation";
+import { checkOrderStatus } from "../../utils/checkOrderStatus";
+import Link from "next/link";
 
 interface CartItem {
   productId: number;
@@ -12,10 +15,11 @@ interface CartItem {
 }
 
 const CartPage: React.FC = () => {
+  const router = useRouter();
   const { cart, deleteFromCart } = useContext(CartContext);
   const [cartItems, setCartItems] = React.useState<CartItem[]>([]);
   const [token, setToken] = React.useState<string>("");
-
+  const [orderStauts, setOrderStatus] = React.useState<boolean>(false);
   const subtotal = calculateTotal(cartItems);
 
   const sentOrder = (carts) => {
@@ -34,7 +38,15 @@ const CartPage: React.FC = () => {
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({ productsCart: cartItem }),
-      });
+      })
+        .then((res) => {
+          if (res.ok) {
+            router.push("/profile/order");
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     } catch (error) {
       console.log(error);
     }
@@ -42,6 +54,10 @@ const CartPage: React.FC = () => {
 
   React.useEffect(() => {
     setCartItems(cart);
+    async function getStaus() {
+      setOrderStatus(await checkOrderStatus());
+    }
+    getStaus();
   }, [cart]);
 
   return (
@@ -92,16 +108,27 @@ const CartPage: React.FC = () => {
               <span className="text-xl font-bold">${subtotal.toFixed(2)}</span>
             </div>
           </div>
-
-          <div className="mt-4 flex justify-end items-center">
-            <button
-              className="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded
+          {orderStauts ? (
+            <div className="text-red-500">
+              <p>You have an order in process</p>
+              <Link
+                href="/profile/order"
+                className="text-blue-500 hover:underline text-sm underline"
+              >
+                process the checkout
+              </Link>
+            </div>
+          ) : (
+            <div className="mt-4 flex justify-end items-center">
+              <button
+                className="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded
             "
-              onClick={() => sentOrder(cart)}
-            >
-              Checkout
-            </button>
-          </div>
+                onClick={() => sentOrder(cart)}
+              >
+                Checkout
+              </button>
+            </div>
+          )}
         </div>
       )}
     </div>

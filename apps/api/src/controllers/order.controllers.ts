@@ -6,9 +6,9 @@ const checkUserHaveOrder = async (req: Request, res: Response) => {
   try {
     const existingOrder = await Order.findOne({ user: req.user });
     if (existingOrder) {
-      return res.status(200).send({ staus: true });
+      return res.status(200).send({ status: true });
     } else {
-      return res.status(200).send({ staus: false });
+      return res.status(200).send({ status: false });
     }
   } catch (error) {
     console.log(error);
