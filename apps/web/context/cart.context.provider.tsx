@@ -23,11 +23,11 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   let initialstate = [];
 
-  if (typeof window !== "undefined") {
-    const storedCart = localStorage.getItem("cart");
-    if (storedCart) {
-      initialstate = JSON.parse(storedCart);
-    }
+  // if (typeof window !== "undefined") {
+  const storedCart = localStorage.getItem("cart");
+  if (storedCart) {
+    initialstate = JSON.parse(storedCart);
+    // }
   }
 
   const [cart, setCartName] = useState<CartItem[]>(initialstate);
