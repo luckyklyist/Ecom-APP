@@ -14,7 +14,7 @@ export default function SendCheckOutBtn({ orderId }) {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
-          // body: { orderId: orderId },
+          body: JSON.stringify({ orderId }),
         }
       );
       if (resp.ok) {
