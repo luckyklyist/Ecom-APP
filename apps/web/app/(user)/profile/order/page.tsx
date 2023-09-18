@@ -1,4 +1,5 @@
 import { cookies } from "next/headers";
+import SendCheckOutBtn from "./SendCheckOutBtn";
 
 interface Order {
   _id: string;
@@ -18,10 +19,10 @@ interface OrdersResponse {
 }
 
 export default async function OrderPage() {
+  const cookieStore = cookies();
+  const token = cookieStore.get("token").value;
   const orderDataUser = async () => {
     try {
-      const cookieStore = cookies();
-      const token = cookieStore.get("token").value;
       const response = await fetch("http://localhost:3004/api/v1/order", {
         method: "GET",
         headers: {
@@ -55,17 +56,7 @@ export default async function OrderPage() {
             (Complete order with stripe)
           </span>
         </div>
-        <div>
-          <div className="mt-4 flex justify-end items-center">
-            <button
-              className="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded
-            "
-              // onClick={() => sentOrder(cart)}
-            >
-              Checkout
-            </button>
-          </div>
-        </div>
+        <SendCheckOutBtn orderId={orderData?.data._id} />
       </div>
     </div>
   );
