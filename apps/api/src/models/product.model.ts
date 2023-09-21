@@ -17,6 +17,16 @@ const productSchema = new mongoose.Schema(
       required: true,
     },
     imageUrl: { type: String, required: true },
+    comments: [
+      {
+        user: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "user",
+          required: true,
+        },
+        comment: { type: String, required: true },
+      },
+    ],
   },
   { timestamps: true }
 );
