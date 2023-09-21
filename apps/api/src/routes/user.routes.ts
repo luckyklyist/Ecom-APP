@@ -6,12 +6,16 @@ import {
 } from "../controllers/auth.controllers";
 import validateToken from "../middlewares/validateToken";
 import { getProfile } from "../controllers/profile.controller";
-import { validateUserSingUpSchema } from "../middlewares/validateUserData";
+import {
+  userSignupSchema,
+  userLoginSchema,
+} from "../validations_schema/auth.schema";
+import { validatePayload } from "../middlewares/validateSchema";
 const routes = express.Router();
 
 routes.get("/userlist", validateToken, getUsers);
 routes.get("/profile", validateToken, getProfile);
-routes.post("/signup", validateUserSingUpSchema, createUser);
-routes.post("/login", loginUser);
+routes.post("/signup", validatePayload(userSignupSchema), createUser);
+routes.post("/login", validatePayload(userLoginSchema), loginUser);
 
 export default routes;

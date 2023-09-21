@@ -14,4 +14,10 @@ export const userSignupSchema = z.object({
   isVerified: z.boolean().default(false).optional(),
 });
 
-export type User = z.infer<typeof userSignupSchema>;
+export const userLoginSchema = z.object({
+  email: z.string().email({ message: "Invalid email format" }),
+  password: z.string(),
+});
+
+export type UserSignUp = z.infer<typeof userSignupSchema>;
+export type UserLogin = z.infer<typeof userLoginSchema>;
