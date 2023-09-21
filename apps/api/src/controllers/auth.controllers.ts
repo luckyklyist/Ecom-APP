@@ -4,6 +4,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import config from "../config/developement.cofig";
+import { User as UserSignUp } from "../validations_schema/auth.schema";
 
 dotenv.config();
 
@@ -17,9 +18,14 @@ const getUsers = async (req: Request, res: Response) => {
   }
 };
 
-const createUser = async (req: Request, res: Response) => {
+interface UserData extends Request {
+  validatedUserData?: UserSignUp;
+}
+
+const createUser = async (req: UserData, res: Response) => {
   try {
-    const { username, email, role, password } = req.body;
+    const { username, email, role, password } =
+      req.validatedUserData as UserSignUp;
 
     const checkUserExist = await User.findOne({ username, email });
     if (checkUserExist) {
@@ -59,15 +65,12 @@ const loginUser = async (req: Request, res: Response) => {
       checkUserExist.password
     );
 
-    console.log("the secret key ",config.SECRET_KEY)
+    console.log("the secret key ", config.SECRET_KEY);
 
     if (!checkPassowrd) {
       res.send({ message: "Password not correct" });
     } else {
-      const token = jwt.sign(
-        { _id: checkUserExist._id },
-        config.SECRET_KEY
-      );
+      const token = jwt.sign({ _id: checkUserExist._id }, config.SECRET_KEY);
 
       return res.status(200).send({ token });
     }

@@ -56,7 +56,7 @@ const createOrder = async (req: Request, res: Response) => {
       user: req.user,
       productsCart,
       paymentStatus: true,
-      orderStatus: true,
+      orderStatus: false,
       totalCost: price,
     });
 
