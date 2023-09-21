@@ -4,7 +4,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import config from "../config/developement.cofig";
-import { User as UserSignUp } from "../validations_schema/auth.schema";
+import { UserSignUp } from "../validations_schema/auth.schema";
 
 dotenv.config();
 
@@ -18,14 +18,9 @@ const getUsers = async (req: Request, res: Response) => {
   }
 };
 
-interface UserData extends Request {
-  validatedUserData?: UserSignUp;
-}
-
-const createUser = async (req: UserData, res: Response) => {
+const createUser = async (req: Request, res: Response) => {
   try {
-    const { username, email, role, password } =
-      req.validatedUserData as UserSignUp;
+    const { username, email, role, password } = req.body;
 
     const checkUserExist = await User.findOne({ username, email });
     if (checkUserExist) {
