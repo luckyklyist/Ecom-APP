@@ -1,4 +1,6 @@
-const Comments = () => {
+import { Comment } from "../../../types/types";
+
+const Comments = ({ comments }) => {
   return (
     <div>
       <div className="mt-8 p-12">
@@ -16,18 +18,12 @@ const Comments = () => {
         </div>
         <div className=" text-white rounded">
           <ul className="list-disc pl-4">
-            <li className="bg-gray-700 rounded-md p-2 mb-2 text-white">
-              <span className="font-semibold">John Doe:</span> This is a great
-              product!
-            </li>
-            <li className="bg-gray-700 rounded-md p-2 mb-2 text-white">
-              <span className="font-semibold">Jane Smith:</span> Love the
-              design!
-            </li>
-            <li className="bg-gray-700 rounded-md p-2 mb-2 text-white">
-              <span className="font-semibold">Anonymous:</span> Added to my
-              wishlist!
-            </li>
+            {comments?.map((comment: Comment) => (
+              <li className="bg-gray-700 rounded-md p-2 mb-2 text-white">
+                <span className="font-semibold">{comment.user}:</span>{" "}
+                {comment.comment}
+              </li>
+            ))}
           </ul>
         </div>
       </div>

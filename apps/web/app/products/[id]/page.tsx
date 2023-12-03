@@ -39,10 +39,12 @@ const ProductDetail = ({ params }) => {
 
   const getProductsDetail = async () => {
     try {
-      const resp = await axios.get(
+      const response = await fetch(
         `http://localhost:3004/api/v1/products/${productId}`
       );
-      setProductData(resp.data);
+      const data = await response.json();
+      console.log(data);
+      setProductData(data);
       checkProductInCart();
     } catch (error) {
       console.log("Error occured");
@@ -95,7 +97,7 @@ const ProductDetail = ({ params }) => {
           </div>
         </div>
       </div>
-      <Comments />
+      <Comments comments={productData?.comments} />
     </div>
   );
 };
